@@ -1,53 +1,93 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BROKECOIN Airdrop</title>
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: #fff;
+      font-family: 'Rubik', sans-serif;
       text-align: center;
+      background-color: #0f0f0f;
+      color: #fff;
       padding: 40px;
     }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: #1e1e1e;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-    button {
-      background: #00ff99;
+    .btn {
+      background-color: #ffcc00;
       border: none;
-      padding: 15px 30px;
+      padding: 15px 25px;
+      margin: 15px;
       font-size: 18px;
-      border-radius: 8px;
       cursor: pointer;
-      margin-top: 20px;
+      border-radius: 10px;
     }
-    button:hover {
-      background: #00cc77;
-    }
-    #status {
-      margin-top: 20px;
-      font-size: 16px;
-      color: #ffcc00;
+    .btn:disabled {
+      background-color: #999;
+      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🚀 Claim your FREE $BROKE</h1>
-    <p>Connect your wallet and receive 900 $BROKE tokens instantly!</p>
-    <button onclick="claimAirdrop()">Connect Wallet & Claim</button>
-    <div id="status"></div>
+  <h1>🚀 Claim FREE $BROKE Tokens!</h1>
+  <p>Follow us on Twitter & join our Telegram to unlock your 900 $BROKE Airdrop!</p>
+
+  <div>
+    <a href="https://twitter.com/BROKECOINBAG" target="_blank">
+      <button class="btn" id="followTwitter">Follow on Twitter</button>
+    </a>
+    <a href="https://t.me/+ay8dpejsl1tiZjA8" target="_blank">
+      <button class="btn" id="joinTelegram">Join Telegram</button>
+    </a>
   </div>
-  <script src="claim.js"></script>
+
+  <button class="btn" id="connectWallet">🔗 Connect Wallet</button>
+  <button class="btn" id="claimAirdrop" disabled>🎉 Claim My Airdrop</button>
+
+  <script>
+    let twitterClicked = false;
+    let telegramClicked = false;
+    let userAddress = "";
+
+    document.getElementById("followTwitter").addEventListener("click", () => {
+      twitterClicked = true;
+      checkEligibility();
+    });
+
+    document.getElementById("joinTelegram").addEventListener("click", () => {
+      telegramClicked = true;
+      checkEligibility();
+    });
+
+    document.getElementById("connectWallet").addEventListener("click", async () => {
+      if (window.ethereum) {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        userAddress = accounts[0];
+        alert("Wallet connected: " + userAddress);
+      } else {
+        alert("Please install MetaMask!");
+      }
+    });
+
+    function checkEligibility() {
+      if (twitterClicked && telegramClicked) {
+        document.getElementById("claimAirdrop").disabled = false;
+      }
+    }
+
+    const claimed = {};
+
+    document.getElementById("claimAirdrop").addEventListener("click", async () => {
+      if (!userAddress) return alert("Please connect your wallet first.");
+      if (claimed[userAddress]) return alert("You've already claimed!");
+
+      claimed[userAddress] = true;
+
+      // Simulatie van airdrop. Hier zou in productie een contractinteractie komen.
+      alert("🎉 You received 900 $BROKE tokens!
+Sent to: " + userAddress);
+    });
+  </script>
 </body>
 </html>
