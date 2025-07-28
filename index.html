@@ -4,23 +4,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BROKECOIN AIRDROP</title>
-  <link rel="stylesheet" href="style.css">
+  <title>🚀 BROKECOIN AIRDROP</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="background"></div>
-  <div class="container">
-    <h1 class="title">🚀 BROKECOIN AIRDROP</h1>
-    <p class="subtitle">Follow us first to unlock the airdrop!</p>
-    <div class="buttons">
-      <a href="https://twitter.com/BROKECOINBAG" target="_blank" class="btn">Follow us on Twitter</a>
-      <a href="https://t.me/+ay8dpejsl1tiZjA8" target="_blank" class="btn">Join our Telegram</a>
-      <button class="btn connect">🔗 Connect Wallet</button>
-      <button class="btn claim">🎉 Claim My Airdrop</button>
-    </div>
-  </div>
-  <audio autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
+  <audio autoplay loop id="bg-music" style="display:none;">
+    <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
+  <div class="background-animation"></div>
+  <div class="container">
+    <img src="assets/brokecoin-logo.gif" alt="BROKECOIN Logo" class="logo" />
+    <h1>🚀 BROKECOIN AIRDROP</h1>
+    <p>Follow us first to unlock the airdrop!</p>
+    <div class="actions">
+      <button id="followTwitter">Follow us on Twitter</button>
+      <button id="joinTelegram">Join our Telegram</button>
+      <button id="connectWallet" disabled>🔗 Connect Wallet</button>
+      <button id="claim" disabled>🎉 Claim My Airdrop</button>
+    </div>
+    <p class="note">Make sure you follow both channels to unlock claiming!</p>
+  </div>
+  <script src="js/app.js"></script>
 </body>
 </html>
