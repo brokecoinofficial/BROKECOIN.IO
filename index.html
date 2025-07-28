@@ -4,111 +4,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BROKECOIN Airdrop</title>
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Press Start 2P', cursive;
-      background: radial-gradient(circle at top, #000000, #121212);
-      color: #f8e71c;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      font-size: 28px;
-      margin-top: 20px;
-    }
-    .btn {
-      padding: 15px 30px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      border-radius: 12px;
-      margin: 10px;
-      background-color: #f8e71c;
-      color: #000;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background-color: #fff200;
-    }
-    #claimButton:disabled {
-      background-color: #888;
-      color: #444;
-      cursor: not-allowed;
-    }
-    .social-links {
-      margin-top: 20px;
-    }
-  </style>
+  <title>BROKECOIN - Claim Your Airdrop</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <h1>🚀 BROKECOIN AIRDROP</h1>
-  <p>Follow us first to unlock the airdrop!</p>
+  <audio autoplay loop controls style="position: fixed; bottom: 10px; left: 10px;">
+    <source src="background-music.mp3" type="audio/mpeg">
+  </audio>
 
-  <div class="social-links">
-    <a href="https://twitter.com/BROKECOINBAG" target="_blank">
-      <button class="btn" onclick="followTwitter()">Follow us on Twitter</button>
-    </a>
-    <a href="https://t.me/+ay8dpejsl1tiZjA8" target="_blank">
-      <button class="btn" onclick="joinTelegram()">Join our Telegram</button>
-    </a>
+  <div class="container">
+    <img src="brokecoin-logo.gif" alt="BROKECOIN Logo" class="logo" />
+    <h1>🚀 Welcome to the BROKECOIN Airdrop</h1>
+    <p>Follow us on Telegram & Twitter to unlock the claim button.</p>
+    <button disabled id="claimBtn">Claim 900 $BROKE</button>
   </div>
 
-  <button class="btn" onclick="connectWallet()">🔗 Connect Wallet</button>
-  <br/>
-  <button class="btn" id="claimButton" onclick="claimAirdrop()" disabled>🎉 Claim My Airdrop</button>
-
-  <script>
-    let twitterFollowed = false;
-    let telegramJoined = false;
-    let userAddress = "";
-
-    function followTwitter() {
-      twitterFollowed = true;
-      enableClaimIfReady();
-    }
-
-    function joinTelegram() {
-      telegramJoined = true;
-      enableClaimIfReady();
-    }
-
-    function enableClaimIfReady() {
-      if (twitterFollowed && telegramJoined && userAddress !== "") {
-        document.getElementById("claimButton").disabled = false;
-      }
-    }
-
-    async function connectWallet() {
-      if (window.ethereum) {
-        try {
-          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-          userAddress = accounts[0];
-          enableClaimIfReady();
-          alert("Wallet connected: " + userAddress);
-        } catch (error) {
-          alert("Wallet connection failed.");
-        }
-      } else {
-        alert("Install MetaMask!");
-      }
-    }
-
-    async function claimAirdrop() {
-      const contractAddress = "0x3f0c5325f9B6EBC75a2CccCEd39721606C34Fd62";
-      const ABI = [{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"airdropToUser","outputs":[],"stateMutability":"nonpayable","type":"function"}];
-      const web3 = new Web3(window.ethereum);
-      const contract = new web3.eth.Contract(ABI, contractAddress);
-      try {
-        await contract.methods.airdropToUser(userAddress, web3.utils.toWei("900", "ether")).send({ from: userAddress });
-        alert("🎉 900 $BROKE tokens sent!");
-      } catch (err) {
-        alert("❌ Airdrop failed: " + err.message);
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
